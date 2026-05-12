@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import {
   BarChart as RechartsBarChart,
   Bar,
@@ -17,7 +18,12 @@ const formatBRL = (v: number) =>
 
 export default function BarChart({ data }: { data: ChartDataPoint[] }) {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <motion.div
+      className="bg-white rounded-lg shadow p-6"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 24, delay: 0.35 }}
+    >
       <h2 className="text-sm font-medium text-gray-500 mb-4">Últimos 6 meses</h2>
       <ResponsiveContainer width="100%" height={280}>
         <RechartsBarChart data={data} margin={{ top: 4, right: 16, left: 16, bottom: 4 }}>
@@ -26,10 +32,10 @@ export default function BarChart({ data }: { data: ChartDataPoint[] }) {
           <YAxis tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`} />
           <Tooltip formatter={(value) => typeof value === 'number' ? formatBRL(value) : value} />
           <Legend />
-          <Bar dataKey="entradas" name="Entradas" fill="#16a34a" />
-          <Bar dataKey="saidas" name="Saídas" fill="#dc2626" />
+          <Bar dataKey="entradas" name="Entradas" fill="#16a34a" animationBegin={400} animationDuration={800} animationEasing="ease-out" />
+          <Bar dataKey="saidas" name="Saídas" fill="#dc2626" animationBegin={500} animationDuration={800} animationEasing="ease-out" />
         </RechartsBarChart>
       </ResponsiveContainer>
-    </div>
+    </motion.div>
   )
 }
