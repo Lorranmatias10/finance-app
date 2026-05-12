@@ -69,9 +69,10 @@ export default async function DashboardPage() {
           label="Saldo atual"
           value={kpi.saldo}
           color={kpi.saldo >= 0 ? 'green' : 'red'}
+          index={0}
         />
-        <KpiCard label="Entradas do mês" value={kpi.totalEntradas} color="green" />
-        <KpiCard label="Saídas do mês" value={kpi.totalSaidas} color="red" />
+        <KpiCard label="Entradas do mês" value={kpi.totalEntradas} color="green" index={1} />
+        <KpiCard label="Saídas do mês" value={kpi.totalSaidas} color="red" index={2} />
       </div>
 
       <BarChart data={chart} />
