@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import TransactionForm from '@/components/TransactionForm'
 import Toast from '@/components/Toast'
 import type { CreateTransactionBody } from '@/lib/types'
@@ -32,9 +33,11 @@ export default function NewTransactionPage() {
       <div className="bg-white rounded-lg shadow p-6 max-w-md">
         <TransactionForm onSubmit={handleSubmit} onCancel={() => router.back()} />
       </div>
-      {toast && (
-        <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
-      )}
+      <AnimatePresence>
+        {toast && (
+          <Toast key="toast" message={toast.message} type={toast.type} onClose={() => setToast(null)} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

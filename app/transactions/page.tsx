@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { AnimatePresence } from 'framer-motion'
 import TransactionTable from '@/components/TransactionTable'
 import TransactionForm from '@/components/TransactionForm'
 import Toast from '@/components/Toast'
@@ -56,7 +57,7 @@ export default function TransactionsPage() {
         <h1 className="text-2xl font-bold">Transações</h1>
         <Link
           href="/transactions/new"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           + Nova transação
         </Link>
@@ -81,9 +82,11 @@ export default function TransactionsPage() {
         />
       </div>
 
-      {toast && (
-        <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />
-      )}
+      <AnimatePresence>
+        {toast && (
+          <Toast key="toast" message={toast.message} type={toast.type} onClose={() => setToast(null)} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
